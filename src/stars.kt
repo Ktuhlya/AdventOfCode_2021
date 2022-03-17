@@ -1,8 +1,80 @@
+import java.io.File
+
+val input = File("src/input.txt")
+val listM = mutableListOf<Pair<Pair<Int,Int>,Pair<Int,Int>>>()
+val karta : MapOfClouds = MapOfClouds(input)
+var mainCount = 0
+var fullMap =0
+var oneCount = 0
+var zeroCount = 0
 
 fun main() {
 
+    input.readLines().forEach { karta.draw(it) }
+   // for (i in input.readLines().indices) karta.draw(input.readLines()[i])
+   //     karta.print()
+    karta.countDanger()
+    println("$mainCount / $oneCount / $zeroCount /// $fullMap")
+
 
 }
+
+
+
+ class MapOfClouds(input: File) {
+      var row = mutableListOf<MutableList<Int>>()
+
+     init {
+         row = MutableList(1000) { MutableList(1000) { 0 } }
+     }
+
+     fun print() {
+         row.forEach { println(it.joinToString(" ")) }
+     }
+
+     fun draw(str: String) {
+
+                 if (str.myDeskartes("x1") == str.myDeskartes("x2")) {
+                     for (i in str.myDeskartes("y1")..str.myDeskartes("y2")) {
+                         //  if (this.row[i][str.myDeskartes("x1")] > 0)
+                         this.row[i][str.myDeskartes("x1")] +=1
+                     }
+                 }
+                 if (str.myDeskartes("y1") == str.myDeskartes("y2")) {
+                     for (i in str.myDeskartes("x1")..str.myDeskartes("x2")) {
+                         //    if (this.row[str.myDeskartes("y1")][i] > 0)
+                         this.row[str.myDeskartes("y1")][i] +=1
+                         // println("Lupa-Pupa!!!")
+                     }
+                 }
+
+     }
+
+     fun countDanger() {
+         for (i in 0 .. 999 ) {
+             for (j in 0..999){
+                 fullMap += 1
+                 if (this.row[i][j] > 1) mainCount += 1
+                 if (this.row[i][j] == 1) oneCount += 1
+                 if (this.row[i][j] == 0) zeroCount += 1
+             }
+         }
+     }
+ }
+
+
+fun String.myDeskartes(str:String): Int {
+
+     when (str) {
+        "x1" -> return this.substringBefore(",").toInt()
+        "x2" -> return this.substringBeforeLast(",").substringAfterLast(" ").toInt()
+        "y1" -> return this.substringAfter(",").substringBefore(" ").toInt()
+        "y2" -> return this.substringAfterLast(",").toInt()
+    }
+    return 0
+}
+
+
 
 
 /*
