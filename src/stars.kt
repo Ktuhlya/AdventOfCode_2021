@@ -1,6 +1,45 @@
 import java.io.File
 
 val input = File("src/input.txt")
+
+fun main() {
+
+    var fishList = input.readLines()[0].split(",").map { it.toInt() }.toMutableList()
+
+    repeat(256){ iteration(fishList)}
+    println(fishList.size.toLong())
+   //  println(fishList.joinToString(","))
+}
+
+fun iteration(fishList: MutableList<Int>) {
+  for (i in fishList.indices) {
+      fishList[i] -=1
+  }
+    checkNewFish(fishList)
+}
+
+fun checkNewFish(fishList: MutableList<Int>) {
+    var count: Long =0
+    for (i in fishList.indices){
+        if (fishList[i] == -1){
+            fishList[i] = 6
+            count += 1
+        }
+    }
+    for (i in 1..count){
+        fishList.add(fishList.lastIndex+1,8)
+    }
+  //  repeat(count){fishList.add(fishList.lastIndex+1,8)}
+   // iteration(fishList)
+}
+
+
+/*
+///////////////////////////////
+
+import java.io.File
+
+val input = File("src/input.txt")
 val listM = mutableListOf<Pair<Pair<Int,Int>,Pair<Int,Int>>>()
 val karta : MapOfClouds = MapOfClouds(input)
 var mainCount = 0
@@ -77,7 +116,7 @@ fun String.myDeskartes(str:String): Int {
 
 
 
-/*
+/////////////////////////
 
 import java.io.File
 import kotlin.system.exitProcess
