@@ -1,7 +1,7 @@
 import java.io.File
 import java.lang.Math.abs
 
-val input = File("src/334.txt")
+val input = File("src/input.txt")
 val posList = input.readLines()[0].split(",").map { it.toInt() }.toMutableList()
 
 
@@ -12,29 +12,24 @@ fun main() {
         if (posList[i] > mxValue) mxValue = posList[i]
     }
     for (v in 1..mxValue){
-   for (i in 1..posList.lastIndex-1) {
-       if (fuelOut(i, v) < tiripiri) {
-           tiripiri = fuelOut(i)
-           println(tiripiri)
 
-       }
+       if (fuelOut( v) < tiripiri) {
+           tiripiri = fuelOut(v)
+
+
    }
     }
+    println(tiripiri)
 
-    println(myFactorial(5))
-    println( fuelOut(5))
 }
 
 fun fuelOut(ind: Int): Int {
     var step = 0
     var fuel = 0
-    for (i in posList.lastIndex downTo ind +1) {
-        fuel +=  myFactorial(abs(posList[i] -posList[ind]))
+    for (i in posList.indices ) {
+        fuel +=  myFactorial(abs(posList[i] - ind))
+    }
 
-    }
-    for (i in ind-1 downTo 0) {
-        fuel += myFactorial(posList[i] - posList[ind])
-    }
     return fuel
 }
 fun myFactorial(value: Int): Int {
