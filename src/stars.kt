@@ -1,4 +1,33 @@
 import java.io.File
+import java.lang.Math.abs
+
+val input = File("src/input.txt")
+val posList = input.readLines()[0].split(",").map { it.toInt() }.toMutableList()
+
+fun main() {
+    var tiripiri = fuelOut(posList.lastIndex/2)
+   for (i in 1..posList.lastIndex-1) {
+       if (fuelOut(i) < tiripiri) {
+           tiripiri = fuelOut(i)
+       }
+   }
+    println(tiripiri)
+}
+
+fun fuelOut(ind: Int): Int {
+    var fuel = 0
+    for (i in posList.lastIndex downTo ind +1) {
+        fuel += abs(posList[i] -posList[ind])
+    }
+    for (i in ind-1 downTo 0) {
+        fuel += abs(posList[i] - posList[ind])
+    }
+    return fuel
+}
+
+/*
+///////////////////////
+import java.io.File
 
 val input = File("src/input.txt")
 
@@ -34,7 +63,7 @@ fun checkNewFish(fishList: MutableList<Int>) {
 }
 
 
-/*
+
 ///////////////////////////////
 
 import java.io.File
