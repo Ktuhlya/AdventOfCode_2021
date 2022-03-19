@@ -1,6 +1,6 @@
 import java.io.File
 
-val input = File("src/334.txt")
+val input = File("src/input.txt")
 var result = 0
 var digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
     4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
@@ -8,6 +8,7 @@ var digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
 fun main() {
 
     for (i in input.readLines().indices) {
+
         findCode(input.readLines()[i])
       //  println(digitMap)
     }
@@ -15,9 +16,10 @@ fun main() {
 
 }
 
+
 fun findCode(str: String) {
-     digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
-        4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
+    // digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
+      //  4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
 
     val codeList = str.substringBefore(" | ").split(" ").toMutableList()
     val codeExList = str.substringAfter(" | ").split(" ").toMutableList()
@@ -56,27 +58,41 @@ fun findCode(str: String) {
                 } else digitMap[6] = codeList[i]
             }
         }
-        //find 3 and 2 and 5
+    }
+    for (i in codeList.indices) {
+        //find 3
         if (codeList[i].length == 5) {
+            count = 0
             if ((codeList[i].contains(digitMap[1]?.substring(0, 1).toString()))
                 && (codeList[i].contains(digitMap[1]?.substring(1).toString()))
             )
                 digitMap[3] = codeList[i] else {
                 count = 0
-                for (j in digitMap[9]?.indices!!) {
-                    if (codeList[i].contains(digitMap[9]!![j])) count += 1
-                }
-                if (count == 4) {
-                    digitMap[2] = codeList[i]
-                } else digitMap[5] = codeList[i]
             }
         }
+        /// find pyat', blyat' and dva blya
     }
+    for (i in codeList.indices) {
+        if ((codeList[i].length ==5) &&(codeList[i] != digitMap[3])) {
+            count = 0
+            for (t in codeList[i].indices){
+                if (digitMap[6]?.contains(codeList[i][t])!!) count +=1
+            }
+            println("COUNT $count")
+            if (count == 5) digitMap[5] = codeList[i]
+            if (count == 4) digitMap[2] = codeList[i]
+
+        }
+
+    }
+
+
+
 
   //  println(codeExList)
    var tempDigit = ""
     for (i in codeExList.indices){
-         tempDigit += findDigit(codeExList[i])
+         tempDigit += findDigit(codeExList[i], digitMap)
     }
     result+=tempDigit.toInt()
 
@@ -92,7 +108,7 @@ fun findCode(str: String) {
 
 }
 
-fun findDigit(str: String): String {
+fun findDigit(str: String, digitMap: MutableMap<Int, String>): String {
     var countD = 0
     var digit = ""
     for (key in 0..9) {
