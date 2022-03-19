@@ -1,21 +1,119 @@
 import java.io.File
 
-val input = File("src/input.txt")
+val input = File("src/334.txt")
 var result = 0
+var digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
+    4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
 
 fun main() {
-    for (i in input.readLines().indices) findCode(input.readLines()[i])
+
+    for (i in input.readLines().indices) {
+        findCode(input.readLines()[i])
+      //  println(digitMap)
+    }
     println(result)
 
 }
 
 fun findCode(str: String) {
-    val codeList = mutableListOf<String>()
+     digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
+        4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
+
+    val codeList = str.substringBefore(" | ").split(" ").toMutableList()
     val codeExList = str.substringAfter(" | ").split(" ").toMutableList()
-    val tempList = listOf(2,3,4,7)
-      str.substringBefore(" | ").split(" ").forEach { if (it.trim().length in tempList)
-          codeList.add(it)
+    val tempList = listOf(2, 3, 4, 7)
+
+    var count = 0
+
+    codeExList.map { it.trim() }
+    codeList.map { it.trim() }
+
+    codeList.forEach {
+        if (it.length in tempList) {
+
+            when (it.trim().length) {
+                7 -> digitMap[8] = it.trim()
+                2 -> digitMap[1] = it.trim()
+                3 -> digitMap[7] = it.trim()
+                4 -> digitMap[4] = it.trim()
+            }
+        }
+    }
+
+    for (i in codeList.indices) {
+        //find 9 and 0 and 6
+        if (codeList[i].length == 6) {
+            count = 0
+            for (j in digitMap[4]?.indices!!) if (codeList[i].contains(digitMap[4]!![j])) count += 1
+            if (count == 4) {
+                digitMap[9] = codeList[i]
+
+            } else {
+                count = 0
+                for (j in digitMap[7]?.indices!!) if (codeList[i].contains(digitMap[7]!![j])) count += 1
+                if (count == 3) {
+                    digitMap[0] = codeList[i]
+                } else digitMap[6] = codeList[i]
+            }
+        }
+        //find 3 and 2 and 5
+        if (codeList[i].length == 5) {
+            if ((codeList[i].contains(digitMap[1]?.substring(0, 1).toString()))
+                && (codeList[i].contains(digitMap[1]?.substring(1).toString()))
+            )
+                digitMap[3] = codeList[i] else {
+                count = 0
+                for (j in digitMap[9]?.indices!!) {
+                    if (codeList[i].contains(digitMap[9]!![j])) count += 1
+                }
+                if (count == 4) {
+                    digitMap[2] = codeList[i]
+                } else digitMap[5] = codeList[i]
+            }
+        }
+    }
+
+  //  println(codeExList)
+   var tempDigit = ""
+    for (i in codeExList.indices){
+         tempDigit += findDigit(codeExList[i])
+    }
+    result+=tempDigit.toInt()
+
+    println(digitMap)
+    println(codeExList)
+    println(tempDigit.toInt())
+
+    codeExList.clear()
+    codeList.clear()
+    count = 0
+    tempDigit=""
+
+
+}
+
+fun findDigit(str: String): String {
+    var countD = 0
+    var digit = ""
+    for (key in 0..9) {
+        str.forEach { if(digitMap[key]?.contains(it)!!) countD+=1 }
+       // println(countD)
+        if ((countD == digitMap[key]?.length) && (countD == str.length)) {
+           // println(countD)
+            digit = key.toString()
+            countD =0
+        } else countD=0
+    }
+
+    return digit
+}
+
+
+////////
+/*
       }
+          }
+
         for (i in codeExList.indices) {
            if (myShufle(codeExList[i], codeList)) result += 1
         }
@@ -26,13 +124,13 @@ fun findCode(str: String) {
 
 }
 
+
 fun myShufle(str: String, codeList: MutableList<String>): Boolean {
     var count = 0
     val shufList = mutableListOf<String>()
     for (i in codeList.indices) {
         if (codeList[i].length ==str.length ) {
             for (j in str.indices) {
-
                 if (str[j] in codeList[i]) {
                     count+=1
                 }
@@ -41,6 +139,8 @@ fun myShufle(str: String, codeList: MutableList<String>): Boolean {
     }
     return  (count==str.length)
 }
+
+ */
 
 
 /*
