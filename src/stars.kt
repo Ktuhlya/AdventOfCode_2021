@@ -1,4 +1,52 @@
 import java.io.File
+
+val input = File("src/input.txt")
+var result = 0
+
+fun main() {
+    for (i in input.readLines().indices) findCode(input.readLines()[i])
+    println(result)
+
+}
+
+fun findCode(str: String) {
+    val codeList = mutableListOf<String>()
+    val codeExList = str.substringAfter(" | ").split(" ").toMutableList()
+    val tempList = listOf(2,3,4,7)
+      str.substringBefore(" | ").split(" ").forEach { if (it.trim().length in tempList)
+          codeList.add(it)
+      }
+        for (i in codeExList.indices) {
+           if (myShufle(codeExList[i], codeList)) result += 1
+        }
+    println(codeExList)
+    println(codeList)
+    codeList.clear()
+    codeExList.clear()
+
+}
+
+fun myShufle(str: String, codeList: MutableList<String>): Boolean {
+    var count = 0
+    val shufList = mutableListOf<String>()
+    for (i in codeList.indices) {
+        if (codeList[i].length ==str.length ) {
+            for (j in str.indices) {
+
+                if (str[j] in codeList[i]) {
+                    count+=1
+                }
+            }
+        }
+    }
+    return  (count==str.length)
+}
+
+
+/*
+///////////////////////
+
+import java.io.File
 import java.lang.Math.abs
 
 val input = File("src/input.txt")
@@ -41,7 +89,7 @@ fun myFactorial(value: Int): Int {
     return res
 }
 
-/*
+
 ///////////////////////
 import java.io.File
 
