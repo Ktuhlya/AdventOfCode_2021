@@ -2,6 +2,44 @@ import java.io.File
 
 val input = File("src/input.txt")
 var result = 0
+
+fun main() {
+    for (y in input.readLines().indices) {
+        for (x in input.readLines()[y].indices) {
+            result += findPit(x,y)
+          //  println(findPit(x,y))
+
+
+        }
+    }
+    println(result)
+}
+
+fun findPit(x: Int, y: Int): Int {
+    val point = input.readLines()[y][x].toString().toInt()
+ //   println("Point $point")
+    val nearb1 = if (y-1 >= 0) input.readLines()[y-1][x] else point
+    val nearb2 = if (x-1 >= 0) input.readLines()[y][x-1] else point
+    val nearb3 = if (y+1 <= input.readLines().lastIndex) input.readLines()[y+1][x] else point
+    val nearb4 = if (x+1 <= input.readLines()[y].lastIndex) input.readLines()[y][x+1] else point
+    val nearbList = listOf(nearb1, nearb2, nearb3,nearb4).map { it.toString().toInt() }
+    nearbList.forEach{if (it < point) return 0}
+    return point +1
+
+  //  println(point)
+  //  println("$nearb1,$nearb2,$nearb3,$nearb4")
+
+
+
+}
+
+
+///////////////
+/*
+import java.io.File
+
+val input = File("src/input.txt")
+var result = 0
 var digitMap = mutableMapOf<Int,String>(0 to "", 1 to "", 2 to "", 3 to "",
     4 to "", 5 to "", 6 to "", 7 to "", 8 to "", 9 to "")
 
@@ -124,6 +162,8 @@ fun findDigit(str: String, digitMap: MutableMap<Int, String>): String {
     return digit
 }
 
+
+ */
 
 ////////
 /*
