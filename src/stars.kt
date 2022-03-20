@@ -1,20 +1,24 @@
 import java.io.File
 
-val input = File("src/input.txt")
+val input = File("src/334.txt")
 var result = 0
 
-fun main() {
-    for (y in input.readLines().indices) {
-        for (x in input.readLines()[y].indices) {
-             findPit(x,y)
-          //  println(findPit(x,y))
+var count = 0
 
+fun main() {
+
+    for (y in input.readLines().indices) {
+
+       for (x in input.readLines()[y].indices) {
+          result  += findPit(x, y)
+            println(findPit(x,y))
         }
     }
+
     println(result)
 }
 
-fun findPit(x: Int, y: Int) {
+fun findPit(x: Int, y: Int): Int {
     val point = input.readLines()[y][x].toString().toInt()
  //   println("Point $point")
     val nearb1 = if (y-1 >= 0) input.readLines()[y-1][x] else 99
@@ -22,8 +26,8 @@ fun findPit(x: Int, y: Int) {
     val nearb3 = if (y+1 <= input.readLines().lastIndex) input.readLines()[y+1][x] else 99
     val nearb4 = if (x+1 <= input.readLines()[y].lastIndex) input.readLines()[y][x+1] else 99
     val nearbList = listOf(nearb1, nearb2, nearb3,nearb4).map { it.toString().toInt() }
-    nearbList.forEach{if (it <= point) return }
-    basinsSq(x,y)
+    nearbList.forEach{if (it <= point) return 0}
+ return   openCell(x,y)
 
 
   //  println(point)
@@ -39,6 +43,49 @@ fun basinsSq(x: Int, y: Int): Int {
 
     return count
 }
+
+fun openCell(x: Int, y: Int): Int {
+    println(input.readLines()[y][x])
+    if (input.readLines()[y][x] != '9') {
+        count += 1
+    } else if (y - 1 in 0 until 9) {
+        if (y - 1 in 0 until 9) {
+            if (x - 1 in 0 until 9) {
+                if (input.readLines()[y - 1][x - 1] != '9')
+                    openCell(x - 1, y - 1)
+        }
+        if (input.readLines()[y - 1][x] != '9')
+            openCell(x, y - 1)
+        if (x + 1 in 0 until 9) {
+            if (input.readLines()[y - 1][x + 1] != '9')
+                openCell(x + 1, y - 1)
+        }
+    }
+    if (y + 1 in 0 until 5) {
+        if (x - 1 in 0 until 9) {
+            if (input.readLines()[y + 1][x - 1] != '9')
+                openCell(x - 1, y + 1)
+        }
+        if (input.readLines()[y + 1][x] != '9')
+            openCell(x, y + 1)
+        if (x + 1 in 0 until 9) {
+            if (input.readLines()[y + 1][x + 1] != '9')
+                openCell(x + 1, y + 1)
+        }
+    }
+    if (x - 1 in 0 until 9 && input.readLines()[y][x - 1] != '9')
+        openCell(x - 1, y)
+    if (x + 1 in 0 until 9 && input.readLines()[y][x + 1] != '9')
+        openCell(x + 1, y)
+
+} else {
+        return count
+    }
+    return  count
+}
+
+
+
 
 
 ///////////////
