@@ -6,31 +6,38 @@ var result = 0
 fun main() {
     for (y in input.readLines().indices) {
         for (x in input.readLines()[y].indices) {
-            result += findPit(x,y)
+             findPit(x,y)
           //  println(findPit(x,y))
-
 
         }
     }
     println(result)
 }
 
-fun findPit(x: Int, y: Int): Int {
+fun findPit(x: Int, y: Int) {
     val point = input.readLines()[y][x].toString().toInt()
  //   println("Point $point")
-    val nearb1 = if (y-1 >= 0) input.readLines()[y-1][x] else point
-    val nearb2 = if (x-1 >= 0) input.readLines()[y][x-1] else point
-    val nearb3 = if (y+1 <= input.readLines().lastIndex) input.readLines()[y+1][x] else point
-    val nearb4 = if (x+1 <= input.readLines()[y].lastIndex) input.readLines()[y][x+1] else point
+    val nearb1 = if (y-1 >= 0) input.readLines()[y-1][x] else 99
+    val nearb2 = if (x-1 >= 0) input.readLines()[y][x-1] else 99
+    val nearb3 = if (y+1 <= input.readLines().lastIndex) input.readLines()[y+1][x] else 99
+    val nearb4 = if (x+1 <= input.readLines()[y].lastIndex) input.readLines()[y][x+1] else 99
     val nearbList = listOf(nearb1, nearb2, nearb3,nearb4).map { it.toString().toInt() }
-    nearbList.forEach{if (it < point) return 0}
-    return point +1
+    nearbList.forEach{if (it <= point) return }
+    basinsSq(x,y)
+
 
   //  println(point)
   //  println("$nearb1,$nearb2,$nearb3,$nearb4")
 
 
 
+}
+
+fun basinsSq(x: Int, y: Int): Int {
+    val count = 0
+
+
+    return count
 }
 
 
