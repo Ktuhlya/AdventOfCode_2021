@@ -1,6 +1,63 @@
 import java.io.File
 
 val input = File("src/334.txt")
+val pairList= listOf(Pair('{', '}'), Pair('[', ']'), Pair('<', '>'), Pair('(', ')'))
+val openList = listOf('{', '[', '<', '(')
+val closeList = listOf('}', ']', '>', ')')
+val tempList = mutableListOf<Char>()
+fun main() {
+    Stars2020().main()
+}
+    /*
+for (i in input.readLines().indices) {
+    tempList.clear()
+    input.readLines()[i].forEach { tempList.add(it) }
+    checkVaal(tempList)
+}
+
+  //  println(checkVaal(tempList[i]))
+}
+*/
+fun checkVaal(tempList: MutableList<Char>) {
+     var ind = 0
+
+println(tempList.joinToString(","))
+
+    for (i in tempList.indices) {
+        if ( closeList.contains(tempList[i])) {
+           ind = closeList.indexOf(tempList[i])
+            if (tempList[i-1] != openList[ind] ){
+                egeshesh(tempList[i-1])
+                tempList.clear()
+                tempList.clear()
+                return
+
+
+            }else{
+                if (i == tempList.lastIndex) return
+                tempList.removeAt(i).also { tempList.removeAt(i-1) }
+
+                if (i>=tempList.lastIndex) return
+              // checkVaal(tempList)
+            }
+        }
+    }
+
+
+}
+
+fun egeshesh(ch: Char) {
+    println(ch)
+  //  checkVaal()
+
+}
+
+
+///////////////////
+
+/*import java.io.File
+
+val input = File("src/334.txt")
 var result = 0
 
 var count = 0
@@ -83,6 +140,8 @@ fun openCell(x: Int, y: Int): Int {
     }
     return  count
 }
+
+ */
 
 
 
