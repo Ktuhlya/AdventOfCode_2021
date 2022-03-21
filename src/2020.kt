@@ -1,14 +1,18 @@
 import java.io.File
  class Stars2020 {
     val input: File = File("src/input.txt")
+     val inList = input.readLines().toList().map { it.toInt() }
 
     fun main () {
-val inList = input.readLines().toList().map { it.toInt() }
-      println((inList.sumOfTwo(2020).first) * inList.sumOfTwo(2020).second )
+        ihnyaya(2020)
+
+   /*   println((inList.sumOfTwo(2020).first) * inList.sumOfTwo(2020).second )
        println(inList.sumOfThree(2020).first.toLong() *
                inList.sumOfThree(2020).second.toLong()*inList.sumOfThree(2020).third.toLong())
         println(inList.sumOfThree(2020))
 
+
+    */
     }
      fun List<Int>.sumOfTwo(sum: Int): Pair<Int,Int> {
          for (i in this.indices) {
@@ -28,7 +32,12 @@ val inList = input.readLines().toList().map { it.toInt() }
          }
          return Triple(0,0,0)
      }
-
+fun ihnyaya(sum: Int): Pair<Int,Int> {
+    val myMap =  inList.associateBy { sum-it }
+    println(myMap)
+  myMap.keys.forEach { if (inList.contains(it)) println(it) }
+    return Pair(0,0)
+}
 
 
 
