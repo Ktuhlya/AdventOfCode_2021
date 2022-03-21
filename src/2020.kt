@@ -1,8 +1,47 @@
 import java.io.File
- class Stars2020 {
-    val input: File = File("src/input.txt")
-     val inList = input.readLines().toList().map { it.toInt() }
+import java.lang.reflect.Type
 
+class Stars2020 {
+val input = File("src/input.txt")
+
+fun main() {
+
+    var count = 0
+    for (str in input.readLines()) if (checkContains(str)) count += 1
+    println(count)
+
+}
+     fun String.mySplit(): List<String> {
+         val min = this.substringBefore("-")
+         val max = this.substringBefore(" ").substringAfter("-")
+         val leter = this.substringBefore(":").substringAfter(" ")
+         val passw = this.substringAfterLast(" ")
+        return listOf(min,max,leter,passw)
+     }
+
+     private fun checkContains(str: String): Boolean {
+         if ((str.mySplit()[3][str.mySplit()[0].toInt()-1].toString() == str.mySplit()[2])
+             xor (str.mySplit()[3][str.mySplit()[1].toInt()-1].toString() == str.mySplit()[2])) return true
+         if ((str.mySplit()[3][str.mySplit()[0].toInt()-1].toString() == str.mySplit()[2])
+             xor (str.mySplit()[3][str.mySplit()[1].toInt()-1].toString() == str.mySplit()[2])) return true
+         return false
+
+     /*    if ((str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[0].toInt()-1)
+             xor  (str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[1].toInt()-1)) return true
+         if ((str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[0].toInt()-1)
+             xor  (str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[1].toInt()-1)) return true
+
+*/
+
+     }
+
+
+ }
+
+//////////////////////////
+/*
+ val input: File = File("src/input.txt")
+     val inList = input.readLines().toList().map { it.toInt() }
     fun main () {
         ihnyaya(2020)
 
@@ -39,9 +78,4 @@ fun ihnyaya(sum: Int): Pair<Int,Int> {
     return Pair(0,0)
 }
 
-
-
-
-
-
-}
+ */
