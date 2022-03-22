@@ -1,8 +1,62 @@
 import java.io.File
-import java.lang.reflect.Type
+import java.math.BigInteger
 
 class Stars2020 {
-val input = File("src/input.txt")
+
+    val input = File("src/334.txt")
+    val fielda = input.readLines()
+    private fun solve(field: List<String>, vector: Pair<Int, Int>): Int {
+        val (dx, dy) = vector
+        val width = field[0].length
+        return field.indices.count { y ->
+            y % dy == 0 && field[y][y * dx / dy % width] == '#'
+        }
+    }
+
+    fun main() {
+        val field = File("src/input.txt").readLines()
+        println(solve(field, 3 to 1))
+        val vectors = listOf(1 to 1, 3 to 1, 5 to 1, 7 to 1, 1 to 2)
+        println(vectors.map { solve(field, it).toBigInteger() }.reduce { a, b -> a * b })
+    }
+}
+
+    /*
+    var count: Int = 0
+    val widg = input.readLines()[0].length
+    val slyMap = listOf(1 to 1, 3 to 1, 5 to 1, 7 to 1, 1 to 2 )
+    val countList = mutableListOf<BigInteger>()
+    val hegt = input.readLines().lastIndex
+
+    fun main() {
+        for (i in slyMap.indices){
+            for (y in fielda.indices) {
+                if (fielda[y*slyMap[i].second][y *slyMap[i].first/slyMap[i].second  % widg] == '#')
+                    count++.toBigInteger()
+                if (y*slyMap[i].second +1 > hegt) break
+            }
+            countList.add(count.toBigInteger())
+            count = 0
+        }
+        println(countList)
+            println(countList.reduce { acc, i ->acc*i  })
+        }
+    }
+
+
+     */
+
+
+
+//if (fielda[u * y][y * t % widg] == '#') count++
+
+
+
+
+     /*
+     import java.io.File
+import java.lang.reflect.Type
+
 
 fun main() {
 
@@ -26,17 +80,13 @@ fun main() {
              xor (str.mySplit()[3][str.mySplit()[1].toInt()-1].toString() == str.mySplit()[2])) return true
          return false
 
-     /*    if ((str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[0].toInt()-1)
-             xor  (str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[1].toInt()-1)) return true
-         if ((str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[0].toInt()-1)
-             xor  (str.mySplit()[3].indexOf(str.mySplit()[2])==str.mySplit()[1].toInt()-1)) return true
-
-*/
 
      }
 
 
  }
+*/
+
 
 //////////////////////////
 /*
