@@ -1,10 +1,62 @@
 import java.io.File
-import java.math.BigInteger
 
 class Stars2020 {
 
-    val input = File("src/334.txt")
+    val input = File("src/input.txt")
     val fielda = input.readLines()
+    val omicronList = listOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid",/*"cid"*/)
+
+    fun main() {
+        val pasportus = input.readText().split(Regex("\\s\\s+"))
+         println(pasportus.count{it1 -> omicronList.all { it in it1 }})
+
+        println(pasportus.count { it ->
+            omicronList.all { it1 -> it1 in it }
+                    && eyaqule(it.strToMap())
+        })
+
+
+    }
+
+
+    fun eyaqule(map: Map<String, String>): Boolean =
+        map.all { (key, value) ->
+            when (key) {
+                "byr" -> value.length == 4 && value.toIntOrNull() in 1920..2002
+                "iyr" -> value.length == 4 && value.toIntOrNull() in 2010..2020
+                "eyr" -> value.length == 4 && value.toIntOrNull() in 2020..2030
+                "pid" -> value.length == 9 && value.all(Char::isDigit)
+                "ecl" -> value in setOf("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+                "hgt" -> when (value.takeLast(2)) {
+                    "cm" -> value.removeSuffix("cm").toIntOrNull() in 150..193
+                    "in" -> value.removeSuffix("in").toIntOrNull() in 59..76
+                    else -> false
+                }
+                "hcl" -> value matches """#[0-9a-f]{6}""".toRegex()
+                else -> true
+            }
+
+        }
+
+
+
+
+
+    fun String.takeNames(): List<String> {
+      return this.split(" ").map{ it.replaceAfter(":","") }
+          .map { it.removeSuffix(":") }
+
+}
+    fun String.strToMap(): Map<String, String> {
+        val myMap = mutableMapOf<String,String>()
+        this.split(" ").
+        forEach{myMap.put(it.substringBefore(":"),it.substringAfter(":")) }
+        return myMap.toMap()
+
+    }
+}
+
+    /*
     private fun solve(field: List<String>, vector: Pair<Int, Int>): Int {
         val (dx, dy) = vector
         val width = field[0].length
@@ -21,7 +73,7 @@ class Stars2020 {
     }
 }
 
-    /*
+/////
     var count: Int = 0
     val widg = input.readLines()[0].length
     val slyMap = listOf(1 to 1, 3 to 1, 5 to 1, 7 to 1, 1 to 2 )
