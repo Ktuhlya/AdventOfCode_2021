@@ -2,9 +2,32 @@ import java.io.File
 import kotlin.math.pow
 
 class Stars2020 {
+    val newLine = System.lineSeparator()
+    val input = File("src/334.txt")
+    val fielda = input.readText().trim().split("$newLine$newLine")
 
-    val input = File("src/input.txt")
-    val fielda = input.readLines()
+
+    fun main() {
+
+        println(fielda.sumOf { it.replace(newLine,"").toSet().size })
+}
+
+}
+
+    /*
+
+       val groups: List<String> = File("src/input.txt")
+            .readText()
+            .trim()
+            .split("$newLine$newLine")
+
+        val firstAnswer = groups.sumOf {
+            it.replace(newLine, "").toSet().size
+        }
+
+
+
+    /////
     val seatsList = mutableListOf<Int>()
 
     fun main() {
@@ -18,7 +41,7 @@ class Stars2020 {
     }
 }
 
-
+*/
 
    /*     val row=bitString.substring(0..6).toList().map { it.toString().toInt() }.reversed()
             .forEachIndexed { index, i -> gf.add(i.toDouble().pow(index).toInt())  }
