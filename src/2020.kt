@@ -1,9 +1,43 @@
 import java.io.File
+import kotlin.math.pow
 
 class Stars2020 {
 
     val input = File("src/input.txt")
     val fielda = input.readLines()
+    val seatsList = mutableListOf<Int>()
+
+    fun main() {
+        for (i in fielda.indices) seatsList.add(fielda[i].replace('F','0')
+            .replace('B', '1')
+            .replace('L', '0')
+            .replace('R', '1').toInt(radix = 2))
+        seatsList.sort()
+        println( seatsList.find { seatsList[it]+1 !=seatsList[it+1] })
+        println(seatsList)
+    }
+}
+
+
+
+   /*     val row=bitString.substring(0..6).toList().map { it.toString().toInt() }.reversed()
+            .forEachIndexed { index, i -> gf.add(i.toDouble().pow(index).toInt())  }
+
+        val seat=bitString.substring(7).toList().map { it.toString().toInt() }.reversed()
+            .forEachIndexed { index, i -> gf.add(i.toDouble().pow(index).toInt())}
+
+        return (gf.subList(0,7).sum()*8 + gf.subList(7,gf.lastIndex).sum() )
+
+    }
+
+
+}
+
+    */
+
+
+/*
+/////
     val omicronList = listOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid",/*"cid"*/)
 
     fun main() {
@@ -55,6 +89,8 @@ class Stars2020 {
 
     }
 }
+
+ */
 
     /*
     private fun solve(field: List<String>, vector: Pair<Int, Int>): Int {
