@@ -13,8 +13,8 @@ class Stars2020 {
             .replace('L', '0')
             .replace('R', '1').toInt(radix = 2))
         seatsList.sort()
-        println( seatsList.find { seatsList[it]+1 !=seatsList[it+1] })
-        println(seatsList)
+        println(seatsList.maxOrNull())
+        println(seatsList[seatsList.find { it-> (seatsList[it]+1 != seatsList[it+1])}!!]+1)
     }
 }
 
