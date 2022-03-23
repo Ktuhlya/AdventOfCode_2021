@@ -3,13 +3,14 @@ import kotlin.math.pow
 
 class Stars2020 {
     val newLine = System.lineSeparator()
-    val input = File("src/334.txt")
+    val input = File("src/input.txt")
     val fielda = input.readText().trim().split("$newLine$newLine")
 
 
     fun main() {
-
-        println(fielda.sumOf { it.replace(newLine,"").toSet().size })
+        val myBubet = fielda.map { it.split(newLine).toSet() }
+         val yopt = myBubet.map {it.map { it1-> it1.toSet() } }
+    println(yopt.sumOf {  it.reduce { acc, sets -> (acc intersect sets) }.count()})
 }
 
 }
