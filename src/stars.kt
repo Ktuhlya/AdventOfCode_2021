@@ -1,5 +1,7 @@
 import java.io.File
 
+const val SHINY_GOLD ="shinygold"
+
 val input = File("src/334.txt")
 val pairList= listOf(Pair('{', '}'), Pair('[', ']'), Pair('<', '>'), Pair('(', ')'))
 val openList = listOf('{', '[', '<', '(')

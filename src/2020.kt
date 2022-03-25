@@ -4,9 +4,45 @@ import kotlin.math.pow
 class Stars2020 {
     val newLine = System.lineSeparator()
     val input = File("src/input.txt")
-    val fielda = input.readText().trim().split("$newLine$newLine")
+   // val fielda = input.readText().trim().split("$newLine$newLine")
 
 
+
+    fun main() {
+        var shinySet = mutableSetOf<String>(SHINY_GOLD)
+       // var tempList = mutableListOf<String>(SHINY_GOLD)
+        var dif = true
+
+        val rulMap: MutableMap<String,MutableSet<String>> = mutableMapOf()
+            input.forEachLine {
+           val (key, rul) =  it.replace(Regex("\\d"), "")
+                .replace(Regex("bags?\\.?"), "")
+               .replace(" ", "").trim().split("contain")
+                rulMap[key]=rul.split(",").toMutableSet()
+
+            }
+        while (dif) {
+            var size = shinySet.size
+            for (i in rulMap.keys) {
+                for (j in 0 until shinySet.size) {
+                    if (rulMap[i]!!.contains(shinySet.toList()[j])) {
+                        shinySet.add(i)
+                    }
+                }
+            }
+            if (size == shinySet.size) dif = false
+        }
+
+    //    println(rulMap)
+        println(shinySet)
+        println(shinySet.size -1)
+
+    }
+
+}
+
+    /*
+        /////////
     fun main() {
         val myBubet = fielda.map { it.split(newLine).toSet() }
          val yopt = myBubet.map {it.map { it1-> it1.toSet() } }
@@ -14,6 +50,8 @@ class Stars2020 {
 }
 
 }
+
+     */
 
     /*
 
